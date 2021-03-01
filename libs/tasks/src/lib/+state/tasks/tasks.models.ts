@@ -2,5 +2,7 @@
  * Interface for the 'Tasks' data
  */
 export interface TasksEntity {
-  id: string | number; // Primary ID
+  id: string; // Primary ID
+  title: string;
+  completed: boolean
 }
