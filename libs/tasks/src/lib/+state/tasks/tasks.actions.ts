@@ -10,5 +10,20 @@ export const loadTasksSuccess = createAction(
 
 export const loadTasksFailure = createAction(
   '[Tasks/API] Load Tasks Failure',
-  props<{ error: any }>()
+  props<{ error: string }>()
+);
+
+export const taskCreate = createAction(
+  '[Tasks/API] Create Task',
+  props<{ task: TasksEntity }>()
+);
+
+export const taskEdit = createAction(
+  '[Tasks/API] Delete Task',
+  props<{ task: TasksEntity }>()
+);
+
+export const taskDelete = createAction(
+  '[Tasks/API] Delete Task',
+  props<{ id: string }>()
 );
