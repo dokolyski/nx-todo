@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@todo-workspace/todo": ["libs/todo/src/index.ts"],
+      "@todo-workspace/todo/data-access": [
+        "libs/todo/data-access/src/index.ts"
+      ],
+      "@todo-workspace/tasks": ["libs/tasks/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
