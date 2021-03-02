@@ -14,7 +14,7 @@ export class TasksFacade {
    */
   loaded$ = this.store.pipe(select(TasksSelectors.getTasksLoaded));
   allTasks$ = this.store.pipe(select(TasksSelectors.getAllTasks));
-  selectedTasks$ = this.store.pipe(select(TasksSelectors.getSelected));
+  selectedTask$ = this.store.pipe(select(TasksSelectors.getSelected));
 
   constructor(private store: Store) {}
 

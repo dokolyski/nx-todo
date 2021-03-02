@@ -1,8 +1,8 @@
 /**
  * Interface for the 'Tasks' data
  */
-export interface TasksEntity {
-  id: string; // Primary ID
+export interface Task {
+  id: string;
   title: string;
   completed: boolean
 }

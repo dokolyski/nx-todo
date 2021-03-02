@@ -51,7 +51,10 @@
               "apps/todo-app/src/favicon.ico",
               "apps/todo-app/src/assets"
             ],
-            "styles": ["apps/todo-app/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/todo-app/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -216,6 +219,31 @@
           "outputs": ["coverage/libs/tasks"],
           "options": {
             "jestConfig": "libs/tasks/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tasks-feature": {
+      "projectType": "library",
+      "root": "libs/tasks/feature",
+      "sourceRoot": "libs/tasks/feature/src",
+      "prefix": "todo-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/tasks/feature/src/**/*.ts",
+              "libs/tasks/feature/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tasks/feature"],
+          "options": {
+            "jestConfig": "libs/tasks/feature/jest.config.js",
             "passWithNoTests": true
           }
         }

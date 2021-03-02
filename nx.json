@@ -20,6 +20,7 @@
     "todo-app-e2e": { "tags": [], "implicitDependencies": ["todo-app"] },
     "todo": { "tags": [] },
     "todo-data-access": { "tags": [] },
-    "tasks": { "tags": [] }
+    "tasks": { "tags": [] },
+    "tasks-feature": { "tags": [] }
   }
 }

@@ -7,7 +7,7 @@ import { StoreModule, Store } from '@ngrx/store';
 
 import { NxModule } from '@nrwl/angular';
 
-import { TasksEntity } from './tasks.models';
+import { TasksEntity } from '../../../../../resources/models/task';
 import { TasksEffects } from './tasks.effects';
 import { TasksFacade } from './tasks.facade';
 

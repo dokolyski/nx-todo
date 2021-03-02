@@ -19,7 +19,8 @@
       "@todo-workspace/todo/data-access": [
         "libs/todo/data-access/src/index.ts"
       ],
-      "@todo-workspace/tasks": ["libs/tasks/src/index.ts"]
+      "@todo-workspace/tasks": ["libs/tasks/src/index.ts"],
+      "@todo-workspace/tasks/feature": ["libs/tasks/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

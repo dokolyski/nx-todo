@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/libs/todo',
     '<rootDir>/libs/todo/data-access',
     '<rootDir>/libs/tasks',
+    '<rootDir>/libs/tasks/feature',
   ],
 };

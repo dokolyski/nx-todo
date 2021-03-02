@@ -1,5 +1,5 @@
-import { TasksEntity } from './tasks.models';
-import { State, tasksAdapter, initialState } from './tasks.reducer';
+import { Task } from '../../../../../resources/models/task';
+import { TasksState, tasksAdapter, initialState } from './tasks.reducer';
 import * as TasksSelectors from './tasks.selectors';
 
 describe('Tasks Selectors', () => {
@@ -9,7 +9,7 @@ describe('Tasks Selectors', () => {
     ({
       id,
       name: name || `name-${id}`,
-    } as TasksEntity);
+    } as Task);
 
   let state;
 

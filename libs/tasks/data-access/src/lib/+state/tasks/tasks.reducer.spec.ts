@@ -1,4 +1,4 @@
-import { TasksEntity } from './tasks.models';
+import { TasksEntity } from '../../../../../resources/models/task';
 import * as TasksActions from './tasks.actions';
 import { State, initialState, reducer } from './tasks.reducer';
 
