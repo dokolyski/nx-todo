@@ -5,8 +5,8 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromTasks from './+state/tasks/tasks.reducer';
 import { TasksEffects } from './+state/tasks/tasks.effects';
 import { TasksFacade } from './+state/tasks/tasks.facade';
-import { STORAGE_ITEM_CONFIG } from '../../../resources/injection-tokens/storage-item-config.injection';
-import { DEFAULT_LIST_LENGTH } from '../../../resources/injection-tokens/default-list-length.injection';
+import { STORAGE_ITEM_CONFIG } from './resources/injection-tokens/storage-item-config.injection';
+import { DEFAULT_LIST_LENGTH } from './resources/injection-tokens/default-list-length.injection';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({

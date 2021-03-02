@@ -2,17 +2,17 @@ import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import * as TasksActions from './tasks.actions';
-import { Task } from '../../../../../resources/models/task';
+import { Task } from '../../resources/models/task';
 
 export const TASKS_FEATURE_KEY = 'tasks';
 
 export interface TasksState extends EntityState<Task> {
   tasks: Task[];
-  selectedId?: string | number; // which Tasks record has been selected
+  selectedId: string | null; // which Tasks record has been selected
   loaded: boolean; // has the Tasks list been loaded
-  error?: string | null; // last known error (if any)
-  from?: number;
-  limit?: number;
+  error: string | null; // last known error (if any)
+  from: number;
+  limit: number | null;
 }
 
 export interface TasksPartialState {
@@ -24,7 +24,11 @@ export const tasksAdapter: EntityAdapter<Task> = createEntityAdapter<Task>();
 export const initialState: TasksState = tasksAdapter.getInitialState({
   // set initial required properties
   tasks: [],
-  loaded: false
+  loaded: false,
+  selectedId: null,
+  error: null,
+  from: 0,
+  limit: null
 });
 
 const tasksReducer = createReducer(

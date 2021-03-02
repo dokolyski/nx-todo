@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Task } from '../../../../../resources/models/task';
+import { Task } from '../../resources/models/task';
 
 export const init = createAction('[Tasks] Init');
 

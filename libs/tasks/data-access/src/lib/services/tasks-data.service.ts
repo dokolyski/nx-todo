@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { STORAGE_ITEM_CONFIG } from '../../../../resources/injection-tokens/storage-item-config.injection';
-import { Task } from '../../../../resources/models/task';
+import { STORAGE_ITEM_CONFIG } from '../resources/injection-tokens/storage-item-config.injection';
+import { Task } from '../resources/models/task';
 
 @Injectable({
   providedIn: 'root'

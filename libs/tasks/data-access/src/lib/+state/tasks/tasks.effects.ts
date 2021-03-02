@@ -2,9 +2,10 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import * as TasksActions from './tasks.actions';
-import { TasksDataService } from '../../../../../feature/src/lib/services/tasks-data.service';
-import { DEFAULT_LIST_LENGTH } from '../../../../../resources/injection-tokens/default-list-length.injection';
+import { TasksDataService } from '../../services/tasks-data.service';
+import { DEFAULT_LIST_LENGTH } from '../../resources/injection-tokens/default-list-length.injection';
 import { TasksState } from './tasks.reducer';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class TasksEffects {
@@ -12,7 +13,7 @@ export class TasksEffects {
     this.actions$.pipe(
       ofType(TasksActions.init),
       fetch({
-        run: () => {
+        run: (): Action => {
           this.taskDataService.getData(0, this.defaultLength);
           // Your custom service 'load' logic goes here. For now just return a success action...
           return TasksActions.loadTasksSuccess({ tasks: [] });
