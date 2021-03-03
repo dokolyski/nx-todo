@@ -90,7 +90,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "todo-app:build"
+            "browserTarget": "todo-app:build",
+            "proxyConfig": "proxy.config.json"
           },
           "configurations": {
             "production": {
@@ -149,81 +150,6 @@
         }
       }
     },
-    "todo": {
-      "projectType": "library",
-      "root": "libs/todo",
-      "sourceRoot": "libs/todo/src",
-      "prefix": "todo-workspace",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/todo/src/**/*.ts",
-              "libs/todo/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/todo"],
-          "options": {
-            "jestConfig": "libs/todo/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "todo-data-access": {
-      "projectType": "library",
-      "root": "libs/todo/data-access",
-      "sourceRoot": "libs/todo/data-access/src",
-      "prefix": "todo-workspace",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/todo/data-access/src/**/*.ts",
-              "libs/todo/data-access/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/todo/data-access"],
-          "options": {
-            "jestConfig": "libs/todo/data-access/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "tasks": {
-      "projectType": "library",
-      "root": "libs/tasks",
-      "sourceRoot": "libs/tasks/src",
-      "prefix": "todo-workspace",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/tasks/src/**/*.ts",
-              "libs/tasks/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/tasks"],
-          "options": {
-            "jestConfig": "libs/tasks/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "tasks-feature": {
       "projectType": "library",
       "root": "libs/tasks/feature",
@@ -244,6 +170,81 @@
           "outputs": ["coverage/libs/tasks/feature"],
           "options": {
             "jestConfig": "libs/tasks/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tasks-data-access": {
+      "projectType": "library",
+      "root": "libs/tasks/data-access",
+      "sourceRoot": "libs/tasks/data-access/src",
+      "prefix": "todo-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/tasks/data-access/src/**/*.ts",
+              "libs/tasks/data-access/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tasks/data-access"],
+          "options": {
+            "jestConfig": "libs/tasks/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tasks-ui-task-form-dialog": {
+      "projectType": "library",
+      "root": "libs/tasks/ui-task-form-dialog",
+      "sourceRoot": "libs/tasks/ui-task-form-dialog/src",
+      "prefix": "todo-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/tasks/ui-task-form-dialog/src/**/*.ts",
+              "libs/tasks/ui-task-form-dialog/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tasks/ui-task-form-dialog"],
+          "options": {
+            "jestConfig": "libs/tasks/ui-task-form-dialog/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tasks-ui-tasks-list": {
+      "projectType": "library",
+      "root": "libs/tasks/ui-tasks-list",
+      "sourceRoot": "libs/tasks/ui-tasks-list/src",
+      "prefix": "todo-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/tasks/ui-tasks-list/src/**/*.ts",
+              "libs/tasks/ui-tasks-list/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tasks/ui-tasks-list"],
+          "options": {
+            "jestConfig": "libs/tasks/ui-tasks-list/jest.config.js",
             "passWithNoTests": true
           }
         }

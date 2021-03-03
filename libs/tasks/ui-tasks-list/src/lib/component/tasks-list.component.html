@@ -1,0 +1,16 @@
+<ng-content></ng-content>
+<mat-accordion>
+  <mat-expansion-panel *ngFor='let task of tasks'>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{task.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{task.dueDate}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <button mat-raised-button color="primary">Mark as completed</button>
+    <button mat-raised-button color="accent">Edit</button>
+    <button mat-raised-button color="warn">Delete</button>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -16,11 +16,11 @@
     }
   },
   "projects": {
-    "todo-app": { "tags": [] },
+    "todo-app": { "tags": ["type:application"] },
     "todo-app-e2e": { "tags": [], "implicitDependencies": ["todo-app"] },
-    "todo": { "tags": [] },
-    "todo-data-access": { "tags": [] },
-    "tasks": { "tags": [] },
-    "tasks-feature": { "tags": [] }
+    "tasks-feature": { "tags": ["type:feature"] },
+    "tasks-data-access": { "tags": ["type:data-access"] },
+    "tasks-ui-task-form-dialog": { "tags": ["type:ui"] },
+    "tasks-ui-tasks-list": { "tags": ["type:ui"] }
   }
 }

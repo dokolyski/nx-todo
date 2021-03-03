@@ -1,0 +1,21 @@
+<todo-workspace-tasks-list [tasks]='tasks$ | complete:false | async'>
+  <h1>TODO List</h1>
+  <button mat-raised-button color="primary" (click)='openCreateDialog()'>New task</button>
+</todo-workspace-tasks-list>
+<!--<mat-paginator [length]='length'-->
+<!--               [pageSize]='pageSize'-->
+<!--               [pageSizeOptions]='pageSizeOptions'-->
+<!--               (page)='pageEvent = $event'>-->
+<!--</mat-paginator>-->
+
+<todo-workspace-tasks-list [tasks]='tasks$ | complete:true | async '>
+  <h1>DONE List</h1>
+</todo-workspace-tasks-list>
+<!--<mat-paginator [length]='length'-->
+<!--               [pageSize]='pageSize'-->
+<!--               [pageSizeOptions]='pageSizeOptions'-->
+<!--               (page)='pageEvent = $event'>-->
+<!--</mat-paginator>-->
+
+
+
