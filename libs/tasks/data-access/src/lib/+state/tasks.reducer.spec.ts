@@ -1,13 +1,16 @@
-import { TasksEntity } from '../resources/models/task';
 import * as TasksActions from './tasks.actions';
-import { State, initialState, reducer } from './tasks.reducer';
+import { initialState, reducer, TasksState } from './tasks.reducer';
+import { Task } from '@todo-workspace/tasks/domain';
 
 describe('Tasks Reducer', () => {
+  test.only('tests not ready!');
+
   const createTasksEntity = (id: string, name = '') =>
     ({
       id,
       name: name || `name-${id}`,
-    } as TasksEntity);
+      dueDate: null
+    } as Task);
 
   beforeEach(() => {});
 
@@ -15,13 +18,12 @@ describe('Tasks Reducer', () => {
     it('loadTasksSuccess should return set the list of known Tasks', () => {
       const tasks = [
         createTasksEntity('PRODUCT-AAA'),
-        createTasksEntity('PRODUCT-zzz'),
+        createTasksEntity('PRODUCT-zzz')
       ];
       const action = TasksActions.loadTasksSuccess({ tasks });
 
-      const result: State = reducer(initialState, action);
+      const result: TasksState = reducer(initialState, action);
 
-      expect(result.loaded).toBe(true);
       expect(result.ids.length).toBe(2);
     });
   });

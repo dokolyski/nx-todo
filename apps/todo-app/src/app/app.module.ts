@@ -21,16 +21,16 @@ import { ApiKeyInterceptor } from './interceptors/api-key.interceptor';
         metaReducers: !environment.production ? [] : [],
         runtimeChecks: {
           strictActionImmutability: true,
-          strictStateImmutability: true,
-        },
+          strictStateImmutability: true
+        }
       }
     ),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true },
-  ],
+    { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }
+  ]
 })
 export class AppModule {}

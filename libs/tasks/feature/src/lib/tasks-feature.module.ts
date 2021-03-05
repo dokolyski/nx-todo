@@ -9,6 +9,7 @@ import { TasksUiTasksListModule } from '@todo-workspace/tasks/ui-tasks-list';
 import { TasksUiTaskFormDialogModule } from '@todo-workspace/tasks/ui-task-form-dialog';
 import { ArtificialPaginatorPipe } from './pipes/artificial-paginator.pipe';
 import { TasksUiProgressSpinnerOverlayModule } from '@todo-workspace/tasks/ui-progress-spinner-overlay';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -19,8 +20,9 @@ import { TasksUiProgressSpinnerOverlayModule } from '@todo-workspace/tasks/ui-pr
     TasksUiTasksListModule,
     TasksUiTaskFormDialogModule,
     TasksUiProgressSpinnerOverlayModule,
+    DragDropModule
   ],
   declarations: [TasksFeatureComponent, CompletePipe, ArtificialPaginatorPipe],
-  exports: [TasksFeatureComponent],
+  exports: [TasksFeatureComponent]
 })
 export class TasksFeatureModule {}

@@ -1,5 +1,5 @@
-import { createReducer, on, Action } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as TasksActions from './tasks.actions';
 import { PaginatorState, Task } from '@todo-workspace/tasks/domain';
@@ -24,13 +24,13 @@ export const initialState: TasksState = tasksAdapter.getInitialState({
   todoPagination: {
     from: 0,
     limit: 5,
-    tasksNumber: 0,
+    tasksNumber: 0
   },
   donePagination: {
     from: 0,
     limit: 5,
-    tasksNumber: 0,
-  },
+    tasksNumber: 0
+  }
 });
 
 const tasksReducer = createReducer(
@@ -42,17 +42,17 @@ const tasksReducer = createReducer(
     tasks,
     todoPagination: {
       ...state.todoPagination,
-      tasksNumber: tasks.reduce((s, c) => s + +!c.completed, 0),
+      tasksNumber: tasks.reduce((s, c) => s + +!c.completed, 0)
     },
     donePagination: {
       ...state.donePagination,
-      tasksNumber: tasks.reduce((s, c) => s + +c.completed, 0),
-    },
+      tasksNumber: tasks.reduce((s, c) => s + +c.completed, 0)
+    }
   })),
   on(TasksActions.loadTasksFailure, (state, { error }) => ({
     ...state,
     error,
-    loading: false,
+    loading: false
   })),
   on(TasksActions.loadTasksRequest, (state) => ({ ...state, loading: true })),
   on(TasksActions.taskCreate, (state) => state),
@@ -60,7 +60,7 @@ const tasksReducer = createReducer(
   on(TasksActions.taskEdit, (state) => state),
   on(TasksActions.changePageRequest, (state, changedPaginator) => ({
     ...state,
-    ...changedPaginator,
+    ...changedPaginator
   }))
 );
 

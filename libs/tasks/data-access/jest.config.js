@@ -9,15 +9,15 @@ module.exports = {
       astTransformers: {
         before: [
           'jest-preset-angular/build/InlineFilesTransformer',
-          'jest-preset-angular/build/StripStylesTransformer',
-        ],
-      },
-    },
+          'jest-preset-angular/build/StripStylesTransformer'
+        ]
+      }
+    }
   },
   coverageDirectory: '../../../coverage/libs/tasks/data-access',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
-    'jest-preset-angular/build/HTMLCommentSerializer.js',
-  ],
+    'jest-preset-angular/build/HTMLCommentSerializer.js'
+  ]
 };

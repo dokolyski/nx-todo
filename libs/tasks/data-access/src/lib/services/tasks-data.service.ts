@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TasksDataService {
   constructor(
@@ -14,17 +14,17 @@ export class TasksDataService {
   ) {}
 
   getAll(): Observable<Task[]> {
-    return this.http
-      .get<Task[]>(this.api)
-      .pipe(
-        map((value) =>
-          value
-            .map((task) =>
-              Object.assign(task, { dueDate: new Date(task.dueDate) })
-            )
-            .sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime())
-        )
-      );
+    return this.http.get<Task[]>(this.api).pipe(
+      map((value) =>
+        value
+          .map((task) =>
+            Object.assign(task, {
+              dueDate: task.dueDate == null ? null : new Date(task.dueDate)
+            })
+          )
+          .sort((a, b) => a.dueDate?.getTime() - b.dueDate?.getTime())
+      )
+    );
   }
 
   create(newTask: Task): Observable<any> {

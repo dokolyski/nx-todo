@@ -18,12 +18,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     StoreModule.forFeature(fromTasks.TASKS_FEATURE_KEY, fromTasks.reducer),
     EffectsModule.forFeature([TasksEffects]),
     BrowserAnimationsModule,
-    MatSnackBarModule,
+    MatSnackBarModule
   ],
   providers: [
     TasksFacade,
     TasksDataService,
-    { provide: TASKS_API, useValue: '/api/task' },
-  ],
+    { provide: TASKS_API, useValue: '/api/task' }
+  ]
 })
 export class TasksDataAccessModule {}

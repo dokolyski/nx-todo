@@ -2,11 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import {
   SnackbarService,
-  TasksFacade,
+  TasksFacade
 } from '@todo-workspace/tasks/data-access';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,7 +18,7 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'todo-workspace-tasks-feature',
   templateUrl: './tasks-feature.component.html',
   styleUrls: ['./tasks-feature.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksFeatureComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
@@ -67,7 +67,7 @@ export class TasksFeatureComponent implements OnInit, OnDestroy {
   ) {
     this.matDialog
       .open(TaskFormDialogComponent, {
-        data: { title: title, task },
+        data: { title: title, task }
       })
       .afterClosed()
       .subscribe((value: Task) => {

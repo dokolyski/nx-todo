@@ -6,6 +6,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   imports: [CommonModule, MatProgressSpinnerModule],
   declarations: [ProgressSpinnerOverlayComponent],
-  exports: [ProgressSpinnerOverlayComponent],
+  exports: [ProgressSpinnerOverlayComponent]
 })
 export class TasksUiProgressSpinnerOverlayModule {}
