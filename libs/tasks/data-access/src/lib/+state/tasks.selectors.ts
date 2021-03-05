@@ -11,9 +11,9 @@ export const getAllTasks = createSelector(
   (state) => state.tasks
 );
 
-export const getTasksLoaded = createSelector(
+export const getTasksLoading = createSelector(
   getTasksState,
-  (state: TasksState) => state.loaded
+  (state: TasksState) => state.loading
 );
 
 export const getTasksError = createSelector(
@@ -21,7 +21,12 @@ export const getTasksError = createSelector(
   (state: TasksState) => state.error
 );
 
-export const getSelectedId = createSelector(
+export const getTodoPaginationState = createSelector(
   getTasksState,
-  (state: TasksState) => state.selectedId
+  (state: TasksState) => state.todoPagination
+);
+
+export const getDonePaginationState = createSelector(
+  getTasksState,
+  (state: TasksState) => state.donePagination
 );

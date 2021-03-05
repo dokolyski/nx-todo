@@ -7,6 +7,8 @@ import { CompletePipe } from './pipes/complete.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { TasksUiTasksListModule } from '@todo-workspace/tasks/ui-tasks-list';
 import { TasksUiTaskFormDialogModule } from '@todo-workspace/tasks/ui-task-form-dialog';
+import { ArtificialPaginatorPipe } from './pipes/artificial-paginator.pipe';
+import { TasksUiProgressSpinnerOverlayModule } from '@todo-workspace/tasks/ui-progress-spinner-overlay';
 
 @NgModule({
   imports: [
@@ -16,8 +18,9 @@ import { TasksUiTaskFormDialogModule } from '@todo-workspace/tasks/ui-task-form-
     MatButtonModule,
     TasksUiTasksListModule,
     TasksUiTaskFormDialogModule,
+    TasksUiProgressSpinnerOverlayModule,
   ],
-  declarations: [TasksFeatureComponent, CompletePipe],
+  declarations: [TasksFeatureComponent, CompletePipe, ArtificialPaginatorPipe],
   exports: [TasksFeatureComponent],
 })
 export class TasksFeatureModule {}

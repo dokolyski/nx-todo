@@ -28,7 +28,12 @@
       ],
       "@todo-workspace/tasks/ui-tasks-list": [
         "libs/tasks/ui-tasks-list/src/index.ts"
-      ]
+      ],
+      "@todo-workspace/tasks/ui-progress-spinner-overlay": [
+        "libs/tasks/ui-progress-spinner-overlay/src/index.ts"
+      ],
+      "@todo-workspace/tasks/ui-test": ["libs/tasks/ui-test/src/index.ts"],
+      "@todo-workspace/tasks/domain": ["libs/tasks/domain/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
