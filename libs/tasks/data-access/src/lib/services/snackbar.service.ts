@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SnackbarService {
   constructor(private _snackBar: MatSnackBar) {}
@@ -11,7 +11,7 @@ export class SnackbarService {
   open(error: HttpErrorResponse) {
     if (error != null) {
       this._snackBar.open(error.message, 'close', {
-        duration: 2000,
+        duration: 2000
       });
     }
   }

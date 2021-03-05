@@ -3,19 +3,20 @@ import {
   Component,
   EventEmitter,
   Input,
-  Output,
+  Output
 } from '@angular/core';
 import {
   ChangePagePayload,
   PaginatorState,
-  Task,
+  Task
 } from '@todo-workspace/tasks/domain';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'todo-workspace-tasks-list',
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksListComponent {
   @Input() tasks: Task[];
@@ -36,5 +37,14 @@ export class TasksListComponent {
 
   deleteTask(task: Task) {
     this.deleteEvent.emit(task);
+  }
+
+  dropTask(event: CdkDragDrop<Task>) {
+    if (
+      event.isPointerOverContainer &&
+      event.previousContainer !== event.container
+    ) {
+      this.completionChange(event.item.data);
+    }
   }
 }

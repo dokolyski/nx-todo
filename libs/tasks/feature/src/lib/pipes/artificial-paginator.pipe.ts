@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PaginatorState, Task } from '@todo-workspace/tasks/domain';
 
 @Pipe({
-  name: 'artificialPaginator',
+  name: 'artificialPaginator'
 })
 export class ArtificialPaginatorPipe implements PipeTransform {
   transform(tasks: Task[], paginatorState: PaginatorState): Task[] {

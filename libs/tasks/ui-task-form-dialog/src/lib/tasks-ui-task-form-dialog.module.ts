@@ -6,7 +6,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TasksDataAccessModule } from '@todo-workspace/tasks/data-access';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -16,9 +17,10 @@ import { TasksDataAccessModule } from '@todo-workspace/tasks/data-access';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    TasksDataAccessModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule
   ],
   declarations: [TaskFormDialogComponent],
-  exports: [TaskFormDialogComponent],
+  exports: [TaskFormDialogComponent]
 })
 export class TasksUiTaskFormDialogModule {}

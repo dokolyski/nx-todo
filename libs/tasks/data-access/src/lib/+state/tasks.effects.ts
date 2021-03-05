@@ -15,7 +15,7 @@ export class TasksEffects {
       fetch({
         run: (): Action => {
           return TasksActions.loadTasksRequest();
-        },
+        }
       })
     )
   );
@@ -46,7 +46,7 @@ export class TasksEffects {
         onError: (action, error) => {
           console.error('Error', error);
           return TasksActions.loadTasksFailure({ error });
-        },
+        }
       })
     )
   );
@@ -63,7 +63,7 @@ export class TasksEffects {
         onError: (action, error) => {
           console.error('Error', error);
           return TasksActions.loadTasksFailure({ error });
-        },
+        }
       })
     )
   );
@@ -79,7 +79,7 @@ export class TasksEffects {
         onError: (action, error) => {
           console.error('Error', error);
           return TasksActions.loadTasksFailure({ error });
-        },
+        }
       })
     )
   );

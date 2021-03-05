@@ -1,23 +1,17 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
-  "plugins": [
-    "@nrwl/nx",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx", "@typescript-eslint", "prettier"],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "prettier/prettier": "warn",
+        "prettier/prettier": [
+          "warn",
+          {
+            "trailingComma": "none"
+          }
+        ],
         "@typescript-eslint/explicit-function-return-type": "error",
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
@@ -27,15 +21,11 @@
             "depConstraints": [
               {
                 "sourceTag": "scope:todo",
-                "onlyDependOnLibsWithTags": [
-                  "scope:todo"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:todo"]
               },
               {
                 "sourceTag": "type:data-access",
-                "onlyDependOnLibsWithTags": [
-                  "type:domain"
-                ]
+                "onlyDependOnLibsWithTags": ["type:domain"]
               },
               {
                 "sourceTag": "type:feature",
@@ -47,16 +37,11 @@
               },
               {
                 "sourceTag": "type:application",
-                "onlyDependOnLibsWithTags": [
-                  "type:feature"
-                ]
+                "onlyDependOnLibsWithTags": ["type:feature"]
               },
               {
                 "sourceTag": "type:ui",
-                "onlyDependOnLibsWithTags": [
-                  "type:ui",
-                  "type:domain"
-                ]
+                "onlyDependOnLibsWithTags": ["type:ui", "type:domain"]
               },
               {
                 "sourceTag": "type:domain",
@@ -68,27 +53,16 @@
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/typescript"
-      ],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
       "parserOptions": {
         "project": "./tsconfig.*?.json"
       },
       "rules": {}
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript",
-        "plugin:prettier/recommended"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript", "plugin:prettier/recommended"],
       "rules": {}
     }
   ]

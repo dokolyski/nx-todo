@@ -9,7 +9,7 @@ import {
   getDonePaginationState,
   getTasksError,
   getTasksLoading,
-  getTodoPaginationState,
+  getTodoPaginationState
 } from './tasks.selectors';
 import * as fromTasks from './tasks.reducer';
 import { PageEvent } from '@angular/material/paginator';
@@ -42,8 +42,8 @@ export class TasksFacade {
         todoPagination: {
           from: pageEvent.pageIndex * pageEvent.pageSize,
           limit: pageEvent.pageSize,
-          tasksNumber,
-        },
+          tasksNumber
+        }
       })
     );
   }
@@ -54,8 +54,8 @@ export class TasksFacade {
         donePagination: {
           from: pageEvent.pageIndex * pageEvent.pageSize,
           limit: pageEvent.pageSize,
-          tasksNumber,
-        },
+          tasksNumber
+        }
       })
     );
   }

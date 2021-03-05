@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -17,8 +18,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCheckboxModule,
     MatPaginatorModule,
     MatDividerModule,
+    DragDropModule
   ],
   declarations: [TasksListComponent],
-  exports: [TasksListComponent],
+  exports: [TasksListComponent]
 })
 export class TasksUiTasksListModule {}
