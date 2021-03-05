@@ -1,27 +1,28 @@
 import { Inject, Injectable } from '@angular/core';
-import { STORAGE_ITEM_CONFIG } from '../resources/injection-tokens/storage-item-config.injection';
-import { Task } from '../resources/models/task';
+import { Task, TASKS_API } from '@todo-workspace/tasks/domain';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { TASKS_API } from '../resources/injection-tokens/tasks-api.injection';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksDataService {
   constructor(
-    @Inject(STORAGE_ITEM_CONFIG) private storageItem: string,
     @Inject(TASKS_API) private api: string,
     private http: HttpClient
   ) {}
 
-  getAll(from: number, limit?: number | null): Observable<Task[]> {
+  getAll(): Observable<Task[]> {
     return this.http
       .get<Task[]>(this.api)
       .pipe(
         map((tasks) =>
-          tasks.slice(from, limit != null ? from + limit : undefined)
+          tasks
+            .map((task) =>
+              Object.assign(task, { dueDate: new Date(task.dueDate) })
+            )
+            .sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime())
         )
       );
   }
@@ -32,12 +33,12 @@ export class TasksDataService {
   }
 
   update(task: Task): Observable<any> {
-    const id = task._id;
-    delete task._id;
-    return this.http.put(`${this.api}/${id}`, task);
+    const newTask = { ...task };
+    delete newTask._id;
+    return this.http.put(`${this.api}/${task._id}`, newTask);
   }
 
-  delete(id: number): Observable<any> {
+  delete(id: string): Observable<any> {
     return this.http.delete(`${this.api}/${id}`);
   }
 

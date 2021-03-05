@@ -16,11 +16,16 @@
     }
   },
   "projects": {
-    "todo-app": { "tags": ["type:application"] },
-    "todo-app-e2e": { "tags": [], "implicitDependencies": ["todo-app"] },
-    "tasks-feature": { "tags": ["type:feature"] },
-    "tasks-data-access": { "tags": ["type:data-access"] },
-    "tasks-ui-task-form-dialog": { "tags": ["type:ui"] },
-    "tasks-ui-tasks-list": { "tags": ["type:ui"] }
+    "todo-app": { "tags": ["type:application", "scope:todo"] },
+    "todo-app-e2e": {
+      "tags": ["type:e2e-test", "scope:todo"],
+      "implicitDependencies": ["todo-app"]
+    },
+    "tasks-feature": { "tags": ["type:feature", "scope:todo"] },
+    "tasks-data-access": { "tags": ["type:data-access", "scope:todo"] },
+    "tasks-ui-task-form-dialog": { "tags": ["type:ui", "scope:todo"] },
+    "tasks-ui-tasks-list": { "tags": ["type:ui", "scope:todo"] },
+    "tasks-ui-progress-spinner-overlay": { "tags": ["type:ui", "scope:todo"] },
+    "tasks-domain": { "tags": ["type:domain", "scope:todo"] }
   }
 }

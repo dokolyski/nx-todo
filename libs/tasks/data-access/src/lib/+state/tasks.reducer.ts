@@ -2,30 +2,35 @@ import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import * as TasksActions from './tasks.actions';
-import { Task } from '../resources/models/task';
+import { PaginatorState, Task } from '@todo-workspace/tasks/domain';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const TASKS_FEATURE_KEY = 'tasks';
 
 export interface TasksState extends EntityState<Task> {
   tasks: Task[];
-  selectedId: number | null; // which Tasks record has been selected
-  loaded: boolean; // has the Tasks list been loaded
-  error: string | null; // last known error (if any)
-  tasksNumber: number;
-  limit: number | null;
-  from: number;
+  loading: boolean; // has the Tasks list been loaded
+  error: HttpErrorResponse | null; // last known error (if any)
+  todoPagination: PaginatorState;
+  donePagination: PaginatorState;
 }
 
 export const tasksAdapter: EntityAdapter<Task> = createEntityAdapter<Task>();
 
 export const initialState: TasksState = tasksAdapter.getInitialState({
   tasks: [],
-  loaded: true,
-  selectedId: null,
+  loading: false,
   error: null,
-  from: 0,
-  limit: null,
-  tasksNumber: 0,
+  todoPagination: {
+    from: 0,
+    limit: 5,
+    tasksNumber: 0,
+  },
+  donePagination: {
+    from: 0,
+    limit: 5,
+    tasksNumber: 0,
+  },
 });
 
 const tasksReducer = createReducer(
@@ -33,19 +38,30 @@ const tasksReducer = createReducer(
   on(TasksActions.init, () => ({ ...initialState })),
   on(TasksActions.loadTasksSuccess, (state, { tasks }) => ({
     ...state,
-    loaded: true,
+    loading: false,
     tasks,
+    todoPagination: {
+      ...state.todoPagination,
+      tasksNumber: tasks.reduce((s, c) => s + +!c.completed, 0),
+    },
+    donePagination: {
+      ...state.donePagination,
+      tasksNumber: tasks.reduce((s, c) => s + +c.completed, 0),
+    },
   })),
   on(TasksActions.loadTasksFailure, (state, { error }) => ({
     ...state,
     error,
-    loaded: true,
-    tasks: [],
+    loading: false,
   })),
-  on(TasksActions.loadTaskRequest, (state) => ({ ...state, loaded: false })),
+  on(TasksActions.loadTasksRequest, (state) => ({ ...state, loading: true })),
   on(TasksActions.taskCreate, (state) => state),
   on(TasksActions.taskDelete, (state) => state),
-  on(TasksActions.taskEdit, (state) => state)
+  on(TasksActions.taskEdit, (state) => state),
+  on(TasksActions.changePageRequest, (state, changedPaginator) => ({
+    ...state,
+    ...changedPaginator,
+  }))
 );
 
 export function reducer(state: TasksState | undefined, action: Action) {

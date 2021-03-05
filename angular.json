@@ -249,6 +249,56 @@
           }
         }
       }
+    },
+    "tasks-ui-progress-spinner-overlay": {
+      "projectType": "library",
+      "root": "libs/tasks/ui-progress-spinner-overlay",
+      "sourceRoot": "libs/tasks/ui-progress-spinner-overlay/src",
+      "prefix": "todo-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/tasks/ui-progress-spinner-overlay/src/**/*.ts",
+              "libs/tasks/ui-progress-spinner-overlay/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tasks/ui-progress-spinner-overlay"],
+          "options": {
+            "jestConfig": "libs/tasks/ui-progress-spinner-overlay/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tasks-domain": {
+      "projectType": "library",
+      "root": "libs/tasks/domain",
+      "sourceRoot": "libs/tasks/domain/src",
+      "prefix": "todo-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/tasks/domain/src/**/*.ts",
+              "libs/tasks/domain/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tasks/domain"],
+          "options": {
+            "jestConfig": "libs/tasks/domain/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }
