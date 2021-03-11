@@ -1,0 +1,20 @@
+<div class='container'>
+  <h1 mat-dialog-title>{{data.title}}</h1>
+  <div mat-dialog-content>
+    <form class='container__form'>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [formControl]='nameControl'>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Due date</mat-label>
+        <input type='datetime-local' matInput [formControl]='dueDateControl'>
+      </mat-form-field>
+    </form>
+  </div>
+  <div align='center' mat-dialog-actions>
+    <button mat-button [mat-dialog-close]='null'>Cancel</button>
+    <button mat-button (click)='validateForm()'>Confirm</button>
+  </div>
+</div>
+

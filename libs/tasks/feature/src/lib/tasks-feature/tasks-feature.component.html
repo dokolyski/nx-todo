@@ -1,0 +1,29 @@
+<div class='task-list-container'>
+  <todo-workspace-tasks-list class='task-list-container__task-list  mat-card mat-elevation-z3'
+                             *ngIf='todoPage$ | async as todoPage'
+                             (deleteEvent)='tasksFacade.delete($event._id)'
+                             (editEvent)='openEditDialog($event)'
+                             (changePage)='tasksFacade.changePageTodo($event.event, $event.tasksNumber)'
+                             (completionChangeEvent)='tasksFacade.changeCompletion($event)'
+                             [tasks]='tasks | complete: false | artificialPaginator: todoPage'
+                             [pagination]='todoPage'>
+    <h1 class='task-list-container__task-list__title'>TODO List</h1>
+    <button mat-raised-button color='primary' (click)='openCreateDialog()'>New task</button>
+  </todo-workspace-tasks-list>
+
+  <todo-workspace-tasks-list class='task-list-container__task-list  mat-card mat-elevation-z3'
+                             *ngIf='donePage$ | async as donePage'
+                             (deleteEvent)='tasksFacade.delete($event._id)'
+                             (editEvent)='openEditDialog($event)'
+                             (changePage)='tasksFacade.changePageDone($event.event, $event.tasksNumber)'
+                             (completionChangeEvent)='tasksFacade.changeCompletion($event)'
+                             [tasks]='tasks | complete: true | artificialPaginator: donePage'
+                             [pagination]='donePage' [checked]='true'>
+    <h1 class='task-list-container__task-list__title'>DONE List</h1>
+  </todo-workspace-tasks-list>
+</div>
+<todo-workspace-progress-spinner-overlay *ngIf='loading$ | async'></todo-workspace-progress-spinner-overlay>
+
+
+
+

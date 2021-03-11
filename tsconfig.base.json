@@ -19,8 +19,21 @@
       "@todo-workspace/todo/data-access": [
         "libs/todo/data-access/src/index.ts"
       ],
-      "@todo-workspace/tasks": ["libs/tasks/src/index.ts"],
-      "@todo-workspace/tasks/feature": ["libs/tasks/feature/src/index.ts"]
+      "@todo-workspace/tasks/feature": ["libs/tasks/feature/src/index.ts"],
+      "@todo-workspace/tasks/data-access": [
+        "libs/tasks/data-access/src/index.ts"
+      ],
+      "@todo-workspace/tasks/ui-task-form-dialog": [
+        "libs/tasks/ui-task-form-dialog/src/index.ts"
+      ],
+      "@todo-workspace/tasks/ui-tasks-list": [
+        "libs/tasks/ui-tasks-list/src/index.ts"
+      ],
+      "@todo-workspace/tasks/ui-progress-spinner-overlay": [
+        "libs/tasks/ui-progress-spinner-overlay/src/index.ts"
+      ],
+      "@todo-workspace/tasks/ui-test": ["libs/tasks/ui-test/src/index.ts"],
+      "@todo-workspace/tasks/domain": ["libs/tasks/domain/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

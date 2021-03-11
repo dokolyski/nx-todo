@@ -1,0 +1,34 @@
+<div class='task-list__header'>
+  <ng-content></ng-content>
+</div>
+<mat-divider class='task-list__divider'></mat-divider>
+<div class='task-list__content'>
+  <ng-container *ngIf='tasks.length > 0; else noTasks'>
+    <mat-accordion [hideToggle]='true'>
+      <mat-expansion-panel class='task-list__content__item' *ngFor='let task of tasks'>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{task.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{task.dueDate.toLocaleString()}}
+          </mat-panel-description>
+          <mat-checkbox [checked]='checked' (click)='$event.stopImmediatePropagation()' (change)='completionChange(task)'></mat-checkbox>
+        </mat-expansion-panel-header>
+        <div class='task-list__content__item__expandable'>
+          <button *ngIf='!checked' (click)='completionChange(task)' mat-raised-button color='primary'>Mark as completed</button>
+          <button *ngIf='!checked' (click)='editTask(task)' mat-raised-button color='accent'>Edit</button>
+          <button (click)='deleteTask(task)' mat-raised-button color='warn'>Delete</button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-paginator class='task-list-container__task-list' [length]='pagination.tasksNumber'
+                   [pageSize]='pagination.limit'
+                   [pageSizeOptions]='[5, 10, 15]'
+                   (page)='changePage.emit({event: $event, tasksNumber: pagination.tasksNumber})'>
+    </mat-paginator>
+  </ng-container>
+  <ng-template #noTasks>
+    <h2 class='no-tasks-message'>No tasks</h2>
+  </ng-template>
+</div>

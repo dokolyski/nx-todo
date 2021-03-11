@@ -1,0 +1,26 @@
+.task-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+}
+
+.no-tasks-message {
+  text-align: center;
+}
+
+.task-list__content__item__expandable {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.task-list__content__item__expandable > * {
+  margin: 3px 5px;
+}
+
+.task-list__divider {
+  margin: 5px 0;
+}
