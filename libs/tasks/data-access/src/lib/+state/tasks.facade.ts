@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-import { Task } from '@todo-workspace/tasks/domain';
+import { select, Store } from '@ngrx/store';
+import { ChangePagePayload, Task } from '@todo-workspace/tasks/domain';
 
 import * as TasksActions from './tasks.actions';
 import {
   getAllTasks,
   getDonePaginationState,
+  getNavigationState,
+  getTaskById,
   getTasksError,
   getTasksLoading,
   getTodoPaginationState
 } from './tasks.selectors';
-import * as fromTasks from './tasks.reducer';
-import { PageEvent } from '@angular/material/paginator';
+import { TasksPartialState } from './tasks.reducer';
+import { first, withLatestFrom } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TasksFacade {
@@ -25,8 +28,9 @@ export class TasksFacade {
   donePage$ = this.store$.select(getDonePaginationState);
   error$ = this.store$.select(getTasksError);
   loading$ = this.store$.select(getTasksLoading);
+  navigation$ = this.store$.select(getNavigationState);
 
-  constructor(private store$: Store<{ tasks: fromTasks.TasksState }>) {}
+  constructor(private store$: Store<TasksPartialState>) {}
 
   /**
    * Use the initialization action to perform one
@@ -36,28 +40,25 @@ export class TasksFacade {
     this.store$.dispatch(TasksActions.init());
   }
 
-  changePageTodo(pageEvent: PageEvent, tasksNumber: number) {
-    this.store$.dispatch(
-      TasksActions.changePageRequest({
-        todoPagination: {
-          from: pageEvent.pageIndex * pageEvent.pageSize,
-          limit: pageEvent.pageSize,
-          tasksNumber
-        }
-      })
-    );
-  }
-
-  changePageDone(pageEvent: PageEvent, tasksNumber: number) {
-    this.store$.dispatch(
-      TasksActions.changePageRequest({
-        donePagination: {
-          from: pageEvent.pageIndex * pageEvent.pageSize,
-          limit: pageEvent.pageSize,
-          tasksNumber
-        }
-      })
-    );
+  changePage(payload: ChangePagePayload) {
+    const newPagination = {
+      from: payload.event.pageIndex * payload.event.pageSize,
+      limit: payload.event.pageSize,
+      tasksNumber: payload.tasksNumber
+    };
+    if (payload.type === 'todo') {
+      this.store$.dispatch(
+        TasksActions.changePageRequest({
+          todoPagination: newPagination
+        })
+      );
+    } else if (payload.type === 'done') {
+      this.store$.dispatch(
+        TasksActions.changePageRequest({
+          donePagination: newPagination
+        })
+      );
+    }
   }
 
   create(task: Task) {
@@ -76,5 +77,21 @@ export class TasksFacade {
     this.store$.dispatch(
       TasksActions.taskEdit({ ...task, completed: !task.completed })
     );
+  }
+
+  navigateToList() {
+    this.store$.dispatch(TasksActions.navigateToList());
+  }
+
+  navigateToEdit(id: string) {
+    this.store$.dispatch(TasksActions.navigateToEdit({ id }));
+  }
+
+  navigateToCreate() {
+    this.store$.dispatch(TasksActions.navigateToCreate());
+  }
+
+  getTask(id: string): Observable<Task> {
+    return this.store$.pipe(select(getTaskById, id));
   }
 }

@@ -6,6 +6,7 @@ module.exports = {
     '<rootDir>/libs/tasks/ui-tasks-list',
     '<rootDir>/libs/tasks/ui-task-form-dialog',
     '<rootDir>/libs/tasks/ui-progress-spinner-overlay',
-    '<rootDir>/libs/tasks/domain'
+    '<rootDir>/libs/tasks/domain',
+    '<rootDir>/libs/tasks/ui-tasks-container'
   ]
 };

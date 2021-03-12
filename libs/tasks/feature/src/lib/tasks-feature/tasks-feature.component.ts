@@ -8,11 +8,15 @@ import {
   SnackbarService,
   TasksFacade
 } from '@todo-workspace/tasks/data-access';
-import { Subject } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  Navigation,
+  OpenDialogPayload,
+  Task
+} from '@todo-workspace/tasks/domain';
+import { Observable, of, Subject } from 'rxjs';
+import { filter, first, map, takeUntil } from 'rxjs/operators';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TaskFormDialogComponent } from '@todo-workspace/tasks/ui-task-form-dialog';
-import { Task } from '@todo-workspace/tasks/domain';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'todo-workspace-tasks-feature',
@@ -21,11 +25,13 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksFeatureComponent implements OnInit, OnDestroy {
-  tasks: Task[] = [];
+  private dialogRef: MatDialogRef<TaskFormDialogComponent>;
   readonly destroy$ = new Subject<void>();
   readonly todoPage$ = this.tasksFacade.todoPage$;
   readonly donePage$ = this.tasksFacade.donePage$;
   readonly loading$ = this.tasksFacade.loading$;
+  readonly tasks$ = this.tasksFacade.tasks$;
+  readonly error$ = this.tasksFacade.error$;
 
   constructor(
     public tasksFacade: TasksFacade,
@@ -47,17 +53,47 @@ export class TasksFeatureComponent implements OnInit, OnDestroy {
         this.snackbar.open(error);
       });
 
-    this.tasksFacade.tasks$
+    this.tasksFacade.navigation$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((tasks) => (this.tasks = tasks));
+      .subscribe((navigationState) => {
+        if (navigationState.dialogOpened) {
+          this.prepareDialog(navigationState).subscribe();
+        } else {
+          this.dialogRef?.close();
+        }
+      });
   }
 
-  openCreateDialog() {
-    this.openDialog('Add new task:', this.tasksFacade.create);
+  prepareDialog(navigationState: Navigation): Observable<void> {
+    let title: string;
+    let onSuccessMethod: (this: TasksFacade, Task) => void;
+    if (navigationState.dialogType === 'create') {
+      title = 'Add new task:';
+      onSuccessMethod = this.tasksFacade.create;
+    } else if (navigationState.dialogType === 'edit') {
+      title = 'Edit this task:';
+      onSuccessMethod = this.tasksFacade.update;
+      if (!navigationState.selectedTask) {
+        // tasks can not be loaded before openEditDialog request occurs
+        return this.tasksFacade.getTask(navigationState.taskId).pipe(
+          filter((task) => task !== undefined),
+          first(),
+          map((task) => this.openDialog(title, onSuccessMethod, task))
+        );
+      }
+    }
+
+    return of(
+      this.openDialog(title, onSuccessMethod, navigationState.selectedTask)
+    );
   }
 
-  openEditDialog(task: Task) {
-    this.openDialog('Edit this task:', this.tasksFacade.update, task);
+  dispatchNavigateToDialogEvent(payload: OpenDialogPayload) {
+    if (payload.type === 'edit') {
+      this.tasksFacade.navigateToEdit(payload.task._id);
+    } else if (payload.type === 'create') {
+      this.tasksFacade.navigateToCreate();
+    }
   }
 
   private openDialog(
@@ -65,12 +101,16 @@ export class TasksFeatureComponent implements OnInit, OnDestroy {
     onSuccessMethod: (this: TasksFacade, Task) => void,
     task?: Task
   ) {
-    this.matDialog
-      .open(TaskFormDialogComponent, {
-        data: { title: title, task },
-      })
+    this.dialogRef?.close(); // close previous dialog if it's still opened
+    this.dialogRef = this.matDialog.open(TaskFormDialogComponent, {
+      data: { title, task }
+    });
+
+    this.dialogRef
       .afterClosed()
+      .pipe(first())
       .subscribe((receivedTask: Task) => {
+        this.tasksFacade.navigateToList();
         if (receivedTask) {
           onSuccessMethod.call(this.tasksFacade, receivedTask);
         }

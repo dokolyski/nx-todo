@@ -29,3 +29,21 @@ export const taskDelete = createAction(
   '[Tasks] Delete Task',
   props<{ id: string }>()
 );
+
+export const navigateToEdit = createAction(
+  '[Router] to edit',
+  props<{ id: string }>()
+);
+
+export const navigateToCreate = createAction('[Router] to create');
+
+export const navigateToList = createAction('[Router] to list');
+
+export const openEdit = createAction(
+  '[Dialog] open edit',
+  props<{ id: string }>()
+);
+
+export const openCreate = createAction('[Dialog] open create');
+
+export const openList = createAction('[Dialog] open list');

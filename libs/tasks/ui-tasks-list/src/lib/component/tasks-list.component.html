@@ -19,14 +19,14 @@
             {{ task.dueDate.toLocaleString() }}
           </mat-panel-description>
           <mat-checkbox
-            [checked]='checked'
+            [checked]='type === "done"'
             (click)='$event.stopImmediatePropagation()'
             (change)='completionChange(task)'
           ></mat-checkbox>
         </mat-expansion-panel-header>
         <div class='task-list__content__item__expandable'>
           <button
-            *ngIf='!checked'
+            *ngIf='type === "todo"'
             (click)='completionChange(task)'
             mat-raised-button
             color='primary'
@@ -34,7 +34,7 @@
             Mark as completed
           </button>
           <button
-            *ngIf='!checked'
+            *ngIf='type === "todo"'
             (click)='editTask(task)'
             mat-raised-button
             color='accent'
@@ -53,15 +53,23 @@
       [pageSize]='pagination.limit'
       [pageSizeOptions]='[5, 10, 15]'
       (page)='
-        changePage.emit({ event: $event, tasksNumber: pagination.tasksNumber })
+        changePage.emit({ event: $event, tasksNumber: pagination.tasksNumber, type: type })
       '
     >
     </mat-paginator>
   </ng-container>
   <ng-template #noTasks>
-    <div cdkDropList (cdkDropListDropped)='dropTask($event)'
+    <div *ngIf='!error; else errorMessage' cdkDropList
+         (cdkDropListDropped)='dropTask($event); element.hidden = false'
          (cdkDropListEntered)='element.hidden = true' (cdkDropListExited)='element.hidden = false'>
-      <h2 #element class='no-tasks-message'>No tasks</h2>
+      <h2 #element class='no-tasks-message'>
+        No tasks
+      </h2>
     </div>
+    <ng-template #errorMessage>
+      <h3 class='no-tasks-message'>
+        Error Occurred - refresh page to try again
+      </h3>
+    </ng-template>
   </ng-template>
 </div>

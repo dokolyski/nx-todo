@@ -16,13 +16,11 @@ export class TasksDataService {
   getAll(): Observable<Task[]> {
     return this.http.get<Task[]>(this.api).pipe(
       map((tasks) =>
-        tasks
-          .map((task) =>
-            Object.assign(task, {
-              dueDate: task.dueDate == null ? null : new Date(task.dueDate)
-            })
-          )
-          .sort((a, b) => a.dueDate?.getTime() - b.dueDate?.getTime())
+        tasks.map((task) =>
+          Object.assign(task, {
+            dueDate: task.dueDate == null ? null : new Date(task.dueDate)
+          })
+        )
       )
     );
   }

@@ -26,6 +26,7 @@
     "tasks-ui-task-form-dialog": { "tags": ["type:ui", "scope:todo"] },
     "tasks-ui-tasks-list": { "tags": ["type:ui", "scope:todo"] },
     "tasks-ui-progress-spinner-overlay": { "tags": ["type:ui", "scope:todo"] },
-    "tasks-domain": { "tags": ["type:domain", "scope:todo"] }
+    "tasks-domain": { "tags": ["type:domain", "scope:todo"] },
+    "tasks-ui-tasks-container": { "tags": ["type:ui", "scope:todo"] }
   }
 }
