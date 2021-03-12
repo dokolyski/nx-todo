@@ -26,7 +26,7 @@ describe('TasksDataService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#getAll should return all records sorted by dueDate', () => {
+  it('#getAll should return all records', () => {
     httpMock.get.mockReturnValue(
       of(taskMocks.map((value) => value.mockWithStringifyDate()))
     );
@@ -34,11 +34,7 @@ describe('TasksDataService', () => {
     service
       .getAll()
       .subscribe((value) =>
-        expect(value).toEqual(
-          taskMocks
-            .sort((a, b) => +(a.getDueDate() >= b.getDueDate()))
-            .map((value) => value.getModel())
-        )
+        expect(value).toEqual(taskMocks.map((value) => value.getModel()))
       );
   });
 });

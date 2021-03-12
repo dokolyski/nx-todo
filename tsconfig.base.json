@@ -33,7 +33,10 @@
         "libs/tasks/ui-progress-spinner-overlay/src/index.ts"
       ],
       "@todo-workspace/tasks/ui-test": ["libs/tasks/ui-test/src/index.ts"],
-      "@todo-workspace/tasks/domain": ["libs/tasks/domain/src/index.ts"]
+      "@todo-workspace/tasks/domain": ["libs/tasks/domain/src/index.ts"],
+      "@todo-workspace/tasks/ui-tasks-container": [
+        "libs/tasks/ui-tasks-container/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

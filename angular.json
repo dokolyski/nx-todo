@@ -299,6 +299,31 @@
           }
         }
       }
+    },
+    "tasks-ui-tasks-container": {
+      "projectType": "library",
+      "root": "libs/tasks/ui-tasks-container",
+      "sourceRoot": "libs/tasks/ui-tasks-container/src",
+      "prefix": "todo-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/tasks/ui-tasks-container/src/**/*.ts",
+              "libs/tasks/ui-tasks-container/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tasks/ui-tasks-container"],
+          "options": {
+            "jestConfig": "libs/tasks/ui-tasks-container/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

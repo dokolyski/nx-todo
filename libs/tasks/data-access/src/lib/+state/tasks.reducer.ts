@@ -8,17 +8,23 @@ import { HttpErrorResponse } from '@angular/common/http';
 export const TASKS_FEATURE_KEY = 'tasks';
 
 export interface TasksState extends EntityState<Task> {
-  tasks: Task[];
   loading: boolean; // has the Tasks list been loaded
   error: HttpErrorResponse | null; // last known error (if any)
   todoPagination: PaginatorState;
   donePagination: PaginatorState;
 }
 
-export const tasksAdapter: EntityAdapter<Task> = createEntityAdapter<Task>();
+export interface TasksPartialState {
+  readonly tasks: TasksState;
+}
+
+export const tasksAdapter: EntityAdapter<Task> = createEntityAdapter<Task>({
+  selectId: (task) => task._id,
+  sortComparer: (a, b) =>
+    a.dueDate.toISOString().localeCompare(b.dueDate.toISOString())
+});
 
 export const initialState: TasksState = tasksAdapter.getInitialState({
-  tasks: [],
   loading: false,
   error: null,
   todoPagination: {
@@ -36,28 +42,38 @@ export const initialState: TasksState = tasksAdapter.getInitialState({
 const tasksReducer = createReducer(
   initialState,
   on(TasksActions.init, () => ({ ...initialState })),
-  on(TasksActions.loadTasksSuccess, (state, { tasks }) => ({
-    ...state,
-    loading: false,
-    tasks,
-    todoPagination: {
-      ...state.todoPagination,
-      tasksNumber: tasks.reduce((s, c) => s + +!c.completed, 0)
-    },
-    donePagination: {
-      ...state.donePagination,
-      tasksNumber: tasks.reduce((s, c) => s + +c.completed, 0)
-    }
-  })),
-  on(TasksActions.loadTasksFailure, (state, { error }) => ({
-    ...state,
-    error,
-    loading: false
-  })),
+  on(TasksActions.loadTasksSuccess, (state, { tasks }) =>
+    tasksAdapter.setAll(tasks, {
+      ...state,
+      error: null,
+      loading: false,
+      todoPagination: {
+        ...state.todoPagination,
+        tasksNumber: tasks.reduce((s, c) => s + +!c.completed, 0)
+      },
+      donePagination: {
+        ...state.donePagination,
+        tasksNumber: tasks.reduce((s, c) => s + +c.completed, 0)
+      }
+    })
+  ),
+  on(TasksActions.loadTasksFailure, (state, { error }) =>
+    tasksAdapter.removeAll({
+      ...state,
+      error,
+      loading: false
+    })
+  ),
   on(TasksActions.loadTasksRequest, (state) => ({ ...state, loading: true })),
-  on(TasksActions.taskCreate, (state) => state),
-  on(TasksActions.taskDelete, (state) => state),
-  on(TasksActions.taskEdit, (state) => state),
+  on(TasksActions.taskCreate, (state, task) =>
+    tasksAdapter.addOne(task, state)
+  ),
+  on(TasksActions.taskDelete, (state, { id }) =>
+    tasksAdapter.removeOne(id, state)
+  ),
+  on(TasksActions.taskEdit, (state, task) =>
+    tasksAdapter.upsertOne(task, state)
+  ),
   on(TasksActions.changePageRequest, (state, changedPaginator) => ({
     ...state,
     ...changedPaginator

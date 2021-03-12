@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
+import { DataPersistence, fetch, navigation } from '@nrwl/angular';
 import * as TasksActions from './tasks.actions';
 import { TasksDataService } from '../services/tasks-data.service';
 import { Action } from '@ngrx/store';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { TasksContainerComponent } from '@todo-workspace/tasks/ui-tasks-container';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { TasksPartialState } from './tasks.reducer';
 
 @Injectable()
 export class TasksEffects {
@@ -84,8 +87,25 @@ export class TasksEffects {
     )
   );
 
+  navigation$ = createEffect(() =>
+    this.actions$.pipe(
+      navigation(TasksContainerComponent, {
+        run: (r: ActivatedRouteSnapshot) => {
+          // todo: temporary, change to close dialog action, keep dialog state
+          return TasksActions.changePageRequest(r.params);
+        },
+
+        onError: (r: ActivatedRouteSnapshot, error) => {
+          console.error('Error', error);
+          throw error;
+        }
+      })
+    )
+  );
+
   constructor(
     private actions$: Actions,
-    private taskDataService: TasksDataService
+    private taskDataService: TasksDataService,
+    private dp: DataPersistence<TasksPartialState>
   ) {}
 }

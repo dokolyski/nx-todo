@@ -11,17 +11,19 @@ import {
   Task
 } from '@todo-workspace/tasks/domain';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'todo-workspace-tasks-list',
+  selector: 'todo-workspace-tasks-list[type]',
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksListComponent {
   @Input() tasks: Task[];
+  @Input() error: HttpErrorResponse;
   @Input() pagination: PaginatorState;
-  @Input() checked = false;
+  @Input() type: 'todo' | 'done';
   @Output() completionChangeEvent = new EventEmitter<Task>();
   @Output() editEvent = new EventEmitter<Task>();
   @Output() deleteEvent = new EventEmitter<Task>();

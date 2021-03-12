@@ -8,11 +8,11 @@ import {
   SnackbarService,
   TasksFacade
 } from '@todo-workspace/tasks/data-access';
+import { OpenDialogPayload, Task } from '@todo-workspace/tasks/domain';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskFormDialogComponent } from '@todo-workspace/tasks/ui-task-form-dialog';
-import { Task } from '@todo-workspace/tasks/domain';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'todo-workspace-tasks-feature',
@@ -21,11 +21,12 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksFeatureComponent implements OnInit, OnDestroy {
-  tasks: Task[] = [];
   readonly destroy$ = new Subject<void>();
   readonly todoPage$ = this.tasksFacade.todoPage$;
   readonly donePage$ = this.tasksFacade.donePage$;
   readonly loading$ = this.tasksFacade.loading$;
+  readonly tasks$ = this.tasksFacade.tasks$;
+  readonly error$ = this.tasksFacade.error$;
 
   constructor(
     public tasksFacade: TasksFacade,
@@ -46,28 +47,22 @@ export class TasksFeatureComponent implements OnInit, OnDestroy {
       .subscribe((error) => {
         this.snackbar.open(error);
       });
-
-    this.tasksFacade.tasks$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((tasks) => (this.tasks = tasks));
   }
 
-  openCreateDialog() {
-    this.openDialog('Add new task:', this.tasksFacade.create);
-  }
+  openDialog(payload: OpenDialogPayload) {
+    let title: string;
+    let onSuccessMethod: (this: TasksFacade, Task) => void;
+    if (payload.type === 'create') {
+      title = 'Add new task:';
+      onSuccessMethod = this.tasksFacade.create;
+    } else if (payload.type === 'edit') {
+      title = 'Edit this task:';
+      onSuccessMethod = this.tasksFacade.update;
+    }
 
-  openEditDialog(task: Task) {
-    this.openDialog('Edit this task:', this.tasksFacade.update, task);
-  }
-
-  private openDialog(
-    title: string,
-    onSuccessMethod: (this: TasksFacade, Task) => void,
-    task?: Task
-  ) {
     this.matDialog
       .open(TaskFormDialogComponent, {
-        data: { title: title, task },
+        data: { title: title, task: payload.task }
       })
       .afterClosed()
       .subscribe((receivedTask: Task) => {

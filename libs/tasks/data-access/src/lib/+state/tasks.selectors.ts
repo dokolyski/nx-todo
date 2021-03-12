@@ -1,4 +1,4 @@
-import { TASKS_FEATURE_KEY, TasksState } from './tasks.reducer';
+import { TASKS_FEATURE_KEY, TasksState, tasksAdapter } from './tasks.reducer';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 // Lookup the 'Tasks' feature state managed by NgRx
@@ -6,9 +6,8 @@ export const getTasksState = createFeatureSelector<TasksState>(
   TASKS_FEATURE_KEY
 );
 
-export const getAllTasks = createSelector(
-  getTasksState,
-  (state) => state.tasks
+export const getAllTasks = createSelector(getTasksState, (state) =>
+  tasksAdapter.getSelectors().selectAll(state)
 );
 
 export const getTasksLoading = createSelector(

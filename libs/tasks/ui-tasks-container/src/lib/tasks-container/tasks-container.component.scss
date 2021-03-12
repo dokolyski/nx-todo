@@ -1,0 +1,19 @@
+.task-list-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+
+.task-list-container__task-list {
+  padding: 10px;
+  border-radius: 5px;
+  width: 70%;
+  min-width: 260px;
+  max-width: 500px;
+  margin: 10px;
+}
+
+.task-list-container__task-list__title {
+  margin: 0;
+}

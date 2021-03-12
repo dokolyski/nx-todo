@@ -4,3 +4,5 @@ export * from './lib/injection-tokens/tasks-api.injection';
 export * from './lib/models/change-page-payload';
 export * from './lib/utils/utils';
 export * from './lib/mock-models/task-mock';
+export * from './lib/models/open-dialog-payload';
+export * from './lib/tasks-domain.module';

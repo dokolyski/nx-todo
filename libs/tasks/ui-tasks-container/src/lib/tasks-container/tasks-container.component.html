@@ -1,0 +1,35 @@
+<div cdkDropListGroup class='task-list-container'>
+  <todo-workspace-tasks-list
+    class='task-list-container__task-list mat-card mat-elevation-z3'
+    (deleteEvent)='deleteTask.emit($event._id)'
+    (editEvent)="openDialog.emit({task: $event, type: 'edit'})"
+    (changePage)='changePage.emit($event)'
+    (completionChangeEvent)='changeCompletion.emit($event)'
+    [tasks]='tasks | complete: false | artificialPaginator: todoPage'
+    [pagination]='todoPage'
+    [error]='error'
+    type='todo'
+  >
+    <h1 class='task-list-container__task-list__title'>TODO List</h1>
+    <button mat-raised-button color='primary' (click)="openDialog.emit({type: 'create'})">
+      New task
+    </button>
+  </todo-workspace-tasks-list>
+
+  <todo-workspace-tasks-list
+    class='task-list-container__task-list mat-card mat-elevation-z3'
+    (deleteEvent)='deleteTask.emit($event._id)'
+    (editEvent)="openDialog.emit({task: $event, type: 'edit'})"
+    (changePage)='changePage.emit($event)'
+    (completionChangeEvent)='changeCompletion.emit($event)'
+    [tasks]='tasks | complete: true | artificialPaginator: donePage'
+    [pagination]='donePage'
+    [error]='error'
+    type='done'
+  >
+    <h1 class='task-list-container__task-list__title'>DONE List</h1>
+  </todo-workspace-tasks-list>
+</div>
+<todo-workspace-progress-spinner-overlay
+  *ngIf='isLoading'
+></todo-workspace-progress-spinner-overlay>
